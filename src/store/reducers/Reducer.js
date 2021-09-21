@@ -1,4 +1,4 @@
-import {GENERATEINDEX, HANDLECLICK, FUNC, START, END, LOSE, TIMERNUMBER, TRANSFORM} from '../actionTypes/actionTypes';
+import {GENERATEINDEX, HANDLECLICK, FUNC, START, END, LOSE, TIMERNUMBER} from '../actionTypes/actionTypes';
 
 const initialState = {
     index: Math.floor(Math.random() * 6),
