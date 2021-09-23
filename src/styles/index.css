@@ -29,4 +29,16 @@ code {
     align-items: flex-end;
     width: 80%;
     margin: auto;
+    background-size: cover;
+    height: 500px;
+}
+.mole{
+    padding-bottom: 65px;
+    display: none;
+}
+.display{
+    display: block;
+}
+.green{
+    background: green;
 }

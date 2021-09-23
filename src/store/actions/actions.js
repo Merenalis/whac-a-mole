@@ -6,20 +6,20 @@ import {
     LOSE,
     START,
     TIMER,
-    TIMERNUMBER, TRANSFORM
-} from '../actionTypes/actionTypes';
+    TIMERNUMBER
+} from '../actionTypes/actionTypes'
 
 export function actionGenerateIndex(index) {
     return {
         type: GENERATEINDEX,
-        index:index
+        payload:{
+            index:index
+        }
     }
 }
-export function actionHandleClick(countSuccess) {
+export function actionHandleClick() {
     return {
         type: HANDLECLICK,
-        countSuccess:countSuccess,
-
     }
 }
 export function actionFunc() {
@@ -31,7 +31,9 @@ export function actionFunc() {
 export function actionStart(timer) {
     return {
         type: START,
-        timer:timer,
+        payload:{
+            timer:timer,
+        }
 
     }
 }
@@ -41,24 +43,29 @@ export function actionEnd() {
 
     }
 }
-export function actionLose(countFail) {
+export function actionLose(fail) {
     return {
         type: LOSE,
-        countFail:countFail
+        countFail: fail,
     }
 }
 export function actionTimerNumber(timerNumber) {
     return {
         type: TIMERNUMBER,
-        timerNumber:timerNumber
+        payload:{
+            timerNumber:timerNumber
+        }
     }
 }
 export function actionTimer(timer) {
     return {
         type: TIMER,
-        timer:timer
+        payload:{
+            timer:timer,
+        }
     }
 }
+
 
 
 

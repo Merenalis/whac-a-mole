@@ -6,11 +6,11 @@ import ModalStart from "./components/ModalStart";
 
 function App() {
     return (
-        <Provider store={store} >
+        <Provider store={store}>
             <Main/>
             <ModalStart/>
         </Provider>
-  );
+    );
 
 }
 

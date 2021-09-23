@@ -1,75 +1,92 @@
-import {GENERATEINDEX, HANDLECLICK, FUNC, START, END, LOSE, TIMERNUMBER} from '../actionTypes/actionTypes';
+import {
+    GENERATEINDEX,
+    HANDLECLICK,
+    FUNC,
+    START,
+    END,
+    LOSE,
+    TIMERNUMBER,
+    TIMER,
+} from '../actionTypes/actionTypes'
 
 const initialState = {
     index: Math.floor(Math.random() * 6),
     timer: null,
     timerNumber: 4000,
-    isDisplay: 'none',
-    isGreen: '#565800',
+    isDisplay: false,
+    isGreen: false,
     countSuccess: 0,
     countFail: 0,
     array: Array(6).fill(null),
     bool: false,
 
-};
+}
 export default function reducer(state = initialState, action) {
     switch (action.type) {
-        case GENERATEINDEX: {
+        case GENERATEINDEX:
             return {
                 ...state,
-                index: action.index,
+                index: action.payload.index,
             }
-        }
-        case HANDLECLICK: {
+
+        case HANDLECLICK:
             return {
                 ...state,
-                countSuccess: ++action.countSuccess,
-                isGreen: 'green',
+                countSuccess: ++state.countSuccess,
+                isGreen: true,
                 bool: true
             }
-        }
-        case FUNC: {
+
+        case FUNC:
             return {
                 ...state,
-                isGreen: '#565800',
+                isGreen: false,
                 bool: false
             }
-        }
-        case START: {
+
+        case START:
             return {
                 ...state,
-                timer: action.timer,
-                isDisplay: 'block',
+                timer: action.payload.timer,
+                isDisplay: true,
+                countSuccess: 0,
+                countFail: 0,
+
             }
-        }
-        case END: {
+
+        case END:
             return {
                 ...state,
                 timer: null,
-                timerNumber: 4000,
-                isDisplay: 'none',
-                isGreen: '#565800',
-                countSuccess: 0,
-                countFail: 0,
-                array: Array(6).fill(null)
+                timerNumber: 2000,
+                isDisplay: false,
+                isGreen: false,
+                array: Array(6).fill(null),
+
             }
-        }
+
         case LOSE: {
+            let countFail = action.countFail
             return {
                 ...state,
-                countFail: ++action.countFail,
+                countFail: ++countFail,
                 bool: false
             }
         }
-        case TIMERNUMBER: {
+
+        case TIMERNUMBER:
             return {
                 ...state,
-                timerNumber: action.timerNumber,
+                timerNumber: action.payload.timerNumber,
             }
-        }
 
+        case TIMER:
+            return {
+                ...state,
+                timer: action.payload.timer,
+            }
 
         default:
-            return state;
+            return state
     }
 }
