@@ -42,12 +42,12 @@ function Main() {
     }
 
     const memoizedIfWin = useCallback(() => {
-        if (data.countSuccess === 999) {
+        if (data.countSuccess === 15) {
             endGame()
         }
     }, [data.countSuccess])
     const memoizedIfLose = useCallback(() => {
-        if (data.countFail === 4) {
+        if (data.countFail === 2) {
             endGame()
         }
     }, [data.countFail])
@@ -78,9 +78,8 @@ function Main() {
     }
 
     function lose() {
-        dispatch(actionLose(data.countFail))
+        dispatch(actionLose())
     }
-
 
     return (
         <div className="wrapper">
@@ -93,7 +92,8 @@ function Main() {
                 {
                     data.array.map((_, n) => {
                         if (n === data.index) {
-                            return (<div key={n} className={`back ${green}`}>
+                            return (
+                                <div key={n} className={`back ${green}`}>
                                     <img className={`mole ${display}`} src={mole} width='150px' alt="mole"
                                          key={data.index}
                                          onClick={() => handleClick(n)}/>
@@ -108,10 +108,8 @@ function Main() {
                 }
             </div>
             {
-                data.countFail === 5 || data.countSuccess === 999 ? <Result onClick={restart}/> : <div/>
+                data.countFail === 3 || data.countSuccess === 15 ? <Result onClick={restart}/> : <div/>
             }
-
-
         </div>
     )
 

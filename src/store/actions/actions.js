@@ -12,56 +12,61 @@ import {
 export function actionGenerateIndex(index) {
     return {
         type: GENERATEINDEX,
-        payload:{
-            index:index
+        payload: {
+            index: index
         }
     }
 }
+
 export function actionHandleClick() {
     return {
         type: HANDLECLICK,
     }
 }
+
 export function actionFunc() {
     return {
         type: FUNC,
 
     }
 }
+
 export function actionStart(timer) {
     return {
         type: START,
-        payload:{
-            timer:timer,
+        payload: {
+            timer: timer,
         }
-
     }
 }
+
 export function actionEnd() {
     return {
         type: END,
 
     }
 }
-export function actionLose(fail) {
+
+export function actionLose() {
     return {
         type: LOSE,
-        countFail: fail,
     }
 }
+
 export function actionTimerNumber(timerNumber) {
     return {
         type: TIMERNUMBER,
-        payload:{
-            timerNumber:timerNumber
+        payload: {
+            timerNumber: timerNumber
         }
     }
 }
+
 export function actionTimer(timer) {
     return {
         type: TIMER,
-        payload:{
-            timer:timer,
+        payload: {
+            timer: timer,
         }
     }
 }

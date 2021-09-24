@@ -5,11 +5,11 @@ function Result(props) {
     const data = useSelector(state => state, shallowEqual)
     const level = data.countSuccess / 10
     return (
-        <div id="modal-start">
-            <div id="overlay-start">
-                <div id="modal-window-start">
-                    <div id="content-start">
-                        {data.countSuccess === 999 ? <div className="results">
+        <div id='modal-start'>
+            <div id='overlay-start'>
+                <div id='modal-window-start'>
+                    <div id='content-start'>
+                        {data.countSuccess === 15 ? <div className='results'>
                                 Successful: {data.countSuccess} <br/>
                                 Fail: {data.countFail} <br/>
                                 Time: {data.timerNumber} <br/>
@@ -20,14 +20,12 @@ function Result(props) {
                             </div>
                         }
                     </div>
-                    <div className="btn" onClick={props.onClick}>
+                    <div className='btn' onClick={props.onClick}>
                         Start new game!
                     </div>
                 </div>
             </div>
         </div>
-
-
     )
 }
 

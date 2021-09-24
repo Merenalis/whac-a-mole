@@ -51,22 +51,20 @@ export default function reducer(state = initialState, action) {
                 isDisplay: true,
                 countSuccess: 0,
                 countFail: 0,
-
             }
 
         case END:
             return {
                 ...state,
                 timer: null,
-                timerNumber: 2000,
+                timerNumber: 4000,
                 isDisplay: false,
                 isGreen: false,
                 array: Array(6).fill(null),
-
             }
 
         case LOSE: {
-            let countFail = action.countFail
+            let countFail = state.countFail
             return {
                 ...state,
                 countFail: ++countFail,
