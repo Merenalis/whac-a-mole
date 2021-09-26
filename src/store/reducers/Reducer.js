@@ -5,20 +5,19 @@ import {
     START,
     END,
     LOSE,
-    TIMERNUMBER,
-    TIMER,
+    TIMERNUMBER, RED, GREEN,
 } from '../actionTypes/actionTypes'
 
 const initialState = {
-    index: Math.floor(Math.random() * 6),
-    timer: null,
+    index: null,
     timerNumber: 4000,
     isDisplay: false,
     isGreen: false,
+    isRed: false,
     countSuccess: 0,
     countFail: 0,
     array: Array(6).fill(null),
-    bool: false,
+    isStart: false,
 
 }
 export default function reducer(state = initialState, action) {
@@ -29,38 +28,47 @@ export default function reducer(state = initialState, action) {
                 index: action.payload.index,
             }
 
-        case HANDLECLICK:
+        case HANDLECLICK: {
+            let countSuccess = state.countSuccess
             return {
                 ...state,
-                countSuccess: ++state.countSuccess,
-                isGreen: true,
-                bool: true
+                countSuccess: ++countSuccess,
             }
-
+        }
         case FUNC:
             return {
                 ...state,
                 isGreen: false,
-                bool: false
+                isRed: false,
+
+            }
+        case GREEN:
+            return {
+                ...state,
+                isGreen: true,
+            }
+        case RED:
+            return {
+                ...state,
+                isRed: true,
             }
 
         case START:
             return {
                 ...state,
-                timer: action.payload.timer,
                 isDisplay: true,
                 countSuccess: 0,
                 countFail: 0,
+                isStart: true,
             }
 
         case END:
             return {
                 ...state,
-                timer: null,
                 timerNumber: 4000,
                 isDisplay: false,
-                isGreen: false,
                 array: Array(6).fill(null),
+                isStart: false,
             }
 
         case LOSE: {
@@ -68,7 +76,6 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 countFail: ++countFail,
-                bool: false
             }
         }
 
@@ -76,12 +83,6 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 timerNumber: action.payload.timerNumber,
-            }
-
-        case TIMER:
-            return {
-                ...state,
-                timer: action.payload.timer,
             }
 
         default:

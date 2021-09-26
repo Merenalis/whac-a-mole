@@ -32,13 +32,24 @@ code {
     background-size: cover;
     height: 500px;
 }
-.mole{
+
+.mole {
     padding-bottom: 65px;
     display: none;
 }
-.display{
+
+.display {
     display: block;
 }
-.green{
+
+.green {
     background: green;
+}
+
+.red {
+    background: red;
+}
+
+.back-wrap {
+    padding-top: 60px;
 }

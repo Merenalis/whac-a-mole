@@ -1,16 +1,17 @@
-import React, {useCallback, useEffect, useRef} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import {shallowEqual, useDispatch, useSelector} from 'react-redux'
 import {
     actionEnd,
     actionFunc,
-    actionGenerateIndex,
+    actionGenerateIndex, actionGreen,
     actionHandleClick,
-    actionLose,
-    actionStart, actionTimer, actionTimerNumber,
+    actionLose, actionRed,
+    actionStart, actionTimerNumber,
 } from '../store/actions/actions'
 import Result from './Result'
 import background from '../images/background2.png'
 import mole from '../images/mole.png'
+
 
 function Main() {
     const dispatch = useDispatch()
@@ -18,37 +19,37 @@ function Main() {
     const styleBackGround = {backgroundImage: 'url(' + background + ')'}
     const display = data.isDisplay === false ? '' : 'display'
     const green = data.isGreen === true ? 'green' : ''
-    let ref = useRef(0)
+    const red = data.isRed === true ? 'red' : ''
+    const delay = async (ms) => await new Promise(resolve => setTimeout(resolve, ms))
 
-    useEffect(func, [data.index])
-
-    function generateIndex() {
-        dispatch(actionGenerateIndex(Math.floor(Math.random() * 6)))
-    }
-
-    function handleClick() {
-        dispatch(actionHandleClick())
-    }
+    useEffect(func, [data.isStart, data.countFail, data.countSuccess])
 
     function func() {
-        if (data.bool === false && ref.current !== 0) {
-            lose()
+        if (data.isStart) {
+            const timeout = setTimeout(() => {
+                dispatch(actionRed())
+                lose()
+
+            }, data.timerNumber)
+            generateIndex()
+            dispatch(actionFunc())
+
+            memoizedIfSuccess10()
+            memoizedIfLose()
+            memoizedIfWin()
+            return () => clearTimeout(timeout)
+
         }
-        ref.current++
-        dispatch(actionFunc())
-        memoizedIfWin()
-        memoizedIfLose()
-        memoizedIfSuccess10()
     }
 
     const memoizedIfWin = useCallback(() => {
-        if (data.countSuccess === 15) {
-            endGame()
+        if (data.countSuccess === 20) {
+            dispatch(actionEnd())
         }
     }, [data.countSuccess])
     const memoizedIfLose = useCallback(() => {
-        if (data.countFail === 2) {
-            endGame()
+        if (data.countFail === 3) {
+            dispatch(actionEnd())
         }
     }, [data.countFail])
     const memoizedIfSuccess10 = useCallback(() => {
@@ -56,29 +57,27 @@ function Main() {
             if (data.timerNumber > 1000) {
                 dispatch(actionTimerNumber(data.timerNumber - 500))
             }
-            clearInterval(data.timer)
-            const timerI = setInterval(generateIndex, data.timerNumber)
-            dispatch(actionTimer(timerI))
         }
     }, [data.countSuccess])
 
-    function startGame() {
-        const timer = setInterval(generateIndex, data.timerNumber)
-        dispatch(actionStart(timer))
-    }
-
-    function endGame() {
-        clearInterval(data.timer)
-        dispatch(actionEnd())
-    }
-
     function restart() {
-        endGame()
-        startGame()
+        dispatch(actionEnd())
+        dispatch(actionStart())
     }
 
-    function lose() {
+    async function lose() {
+        await delay(200)
         dispatch(actionLose())
+    }
+
+    async function handleClick() {
+        dispatch(actionGreen('green'))
+        await delay(300)
+        dispatch(actionHandleClick())
+    }
+
+    function generateIndex() {
+        dispatch(actionGenerateIndex(Math.floor(Math.random() * 6)))
     }
 
     return (
@@ -93,7 +92,7 @@ function Main() {
                     data.array.map((_, n) => {
                         if (n === data.index) {
                             return (
-                                <div key={n} className={`back ${green}`}>
+                                <div key={n} className={`back ${green} ${red}`}>
                                     <img className={`mole ${display}`} src={mole} width='150px' alt="mole"
                                          key={data.index}
                                          onClick={() => handleClick(n)}/>
@@ -101,14 +100,17 @@ function Main() {
                             )
                         } else {
                             return (
-                                <div key={n} className="back" onClick={() => lose(n)}/>
+                                <div className='back-wrap' onClick={() => lose(n)}>
+                                    <div key={n} className="back"/>
+                                </div>
                             )
                         }
                     })
                 }
+
             </div>
             {
-                data.countFail === 3 || data.countSuccess === 15 ? <Result onClick={restart}/> : <div/>
+                data.countFail === 3 || data.countSuccess === 20 ? <Result onClick={restart}/> : <div/>
             }
         </div>
     )

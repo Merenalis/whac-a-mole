@@ -1,11 +1,10 @@
 import {
     END,
     FUNC,
-    GENERATEINDEX,
+    GENERATEINDEX, GREEN,
     HANDLECLICK,
-    LOSE,
+    LOSE, RED,
     START,
-    TIMER,
     TIMERNUMBER
 } from '../actionTypes/actionTypes'
 
@@ -27,23 +26,18 @@ export function actionHandleClick() {
 export function actionFunc() {
     return {
         type: FUNC,
-
     }
 }
 
-export function actionStart(timer) {
+export function actionStart() {
     return {
         type: START,
-        payload: {
-            timer: timer,
-        }
     }
 }
 
 export function actionEnd() {
     return {
         type: END,
-
     }
 }
 
@@ -62,12 +56,14 @@ export function actionTimerNumber(timerNumber) {
     }
 }
 
-export function actionTimer(timer) {
+export function actionGreen() {
     return {
-        type: TIMER,
-        payload: {
-            timer: timer,
-        }
+        type: GREEN,
+    }
+}
+export function actionRed() {
+    return {
+        type: RED,
     }
 }
 

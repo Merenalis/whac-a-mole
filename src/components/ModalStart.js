@@ -1,21 +1,15 @@
 import React, {useState} from 'react'
 import '../styles/result.css'
-import {shallowEqual, useDispatch, useSelector} from 'react-redux'
-import {actionGenerateIndex, actionStart} from '../store/actions/actions'
+import {useDispatch} from 'react-redux'
+import {actionStart} from '../store/actions/actions'
 
 export default function ModalStart() {
     const [display, setDisplay] = useState('block')
-    const data = useSelector(state => state, shallowEqual)
     const dispatch = useDispatch()
 
     function hideWindow() {
         setDisplay('none')
-        const timer = setInterval(generateIndex, data.timerNumber)
-        dispatch(actionStart(timer))
-    }
-
-    function generateIndex() {
-        dispatch(actionGenerateIndex(Math.floor(Math.random() * 6)))
+        dispatch(actionStart())
     }
 
     const style = {display: display}
