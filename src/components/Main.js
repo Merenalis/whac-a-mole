@@ -116,8 +116,8 @@ function Main() {
 
             </div>
             {
-                data.countFail === countForLose || data.countSuccess === countForWin ?
-                    <Result onClick={restart} countForWin={countForWin}/> : <div/>
+                (data.countFail === countForLose || data.countSuccess === countForWin) &&
+                    <Result onClick={restart} countForWin={countForWin}/>
             }
         </div>
     )
