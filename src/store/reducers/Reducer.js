@@ -59,7 +59,7 @@ export default function reducer(state = initialState, action) {
                 isDisplay: true,
                 countSuccess: 0,
                 countFail: 0,
-                timerNumber: 450,
+                timerNumber: 4000,
                 isStart: true,
             }
 

@@ -22,8 +22,7 @@ function Main() {
     const red = data.isRed === true ? 'red' : ''
     const delay = async (ms) => await new Promise(resolve => setTimeout(resolve, ms))
     const countForWin = 100
-    const countForLose = 100
-    const truthy = true
+    const countForLose = 3
     useEffect(func, [data.isStart, data.countFail, data.countSuccess])
 
     function func() {
@@ -79,7 +78,8 @@ function Main() {
     }
 
     function generateIndex() {
-        let index = Math.floor(Math.random() * 5)
+        let max = 5 + (data.index!==null ? -1 : 0)
+        let index = Math.floor(Math.random() * (max + 1))
         if (index >= data.index) {
             index += 1
         }
@@ -91,7 +91,7 @@ function Main() {
             <div className="statistics">
                 Successful: {data.countSuccess} <br/>
                 Failed: {data.countFail} <br/>
-                Timer: {data.timerNumber} <br/>
+                Time: {data.timerNumber} <br/>
             </div>
             <div className="game" style={styleBackGround}>
                 {
