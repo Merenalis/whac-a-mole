@@ -43,7 +43,7 @@ function Main() {
     }
 
     const memoizedIfWin = useCallback(() => {
-        if (data.countSuccess === 20) {
+        if (data.countSuccess === 100) {
             dispatch(actionEnd())
         }
     }, [data.countSuccess])
@@ -77,7 +77,11 @@ function Main() {
     }
 
     function generateIndex() {
-        dispatch(actionGenerateIndex(Math.floor(Math.random() * 6)))
+        const index = Math.floor(Math.random() * 6)
+        if (index===data.index){
+            generateIndex()
+        }else
+        dispatch(actionGenerateIndex(index))
     }
 
     return (
@@ -110,7 +114,7 @@ function Main() {
 
             </div>
             {
-                data.countFail === 3 || data.countSuccess === 20 ? <Result onClick={restart}/> : <div/>
+                data.countFail === 3 || data.countSuccess === 100 ? <Result onClick={restart}/> : <div/>
             }
         </div>
     )

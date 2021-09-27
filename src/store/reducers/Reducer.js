@@ -59,13 +59,13 @@ export default function reducer(state = initialState, action) {
                 isDisplay: true,
                 countSuccess: 0,
                 countFail: 0,
+                timerNumber: 4000,
                 isStart: true,
             }
 
         case END:
             return {
                 ...state,
-                timerNumber: 4000,
                 isDisplay: false,
                 array: Array(6).fill(null),
                 isStart: false,
