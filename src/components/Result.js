@@ -9,7 +9,7 @@ function Result(props) {
             <div id='overlay-start'>
                 <div id='modal-window-start'>
                     <div id='content-start'>
-                        {data.countSuccess === 100 ? <div className='results'>
+                        {data.countSuccess === props.countForWin ? <div className='results'>
                                 Successful: {data.countSuccess} <br/>
                                 Fail: {data.countFail} <br/>
                                 Time: {data.timerNumber} <br/>

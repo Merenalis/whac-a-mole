@@ -21,7 +21,9 @@ function Main() {
     const green = data.isGreen === true ? 'green' : ''
     const red = data.isRed === true ? 'red' : ''
     const delay = async (ms) => await new Promise(resolve => setTimeout(resolve, ms))
-
+    const countForWin = 100
+    const countForLose = 100
+    const truthy = true
     useEffect(func, [data.isStart, data.countFail, data.countSuccess])
 
     function func() {
@@ -43,19 +45,19 @@ function Main() {
     }
 
     const memoizedIfWin = useCallback(() => {
-        if (data.countSuccess === 100) {
+        if (data.countSuccess === countForWin) {
             dispatch(actionEnd())
         }
     }, [data.countSuccess])
     const memoizedIfLose = useCallback(() => {
-        if (data.countFail === 3) {
+        if (data.countFail === countForLose) {
             dispatch(actionEnd())
         }
     }, [data.countFail])
     const memoizedIfSuccess10 = useCallback(() => {
         if (data.countSuccess % 10 === 0 && data.countSuccess !== 0) {
             if (data.timerNumber > 1000) {
-                dispatch(actionTimerNumber(data.timerNumber - 500))
+                dispatch(actionTimerNumber(data.timerNumber - 350))
             }
         }
     }, [data.countSuccess])
@@ -77,10 +79,10 @@ function Main() {
     }
 
     function generateIndex() {
-        const index = Math.floor(Math.random() * 6)
-        if (index===data.index){
-            generateIndex()
-        }else
+        let index = Math.floor(Math.random() * 5)
+        if (index >= data.index) {
+            index += 1
+        }
         dispatch(actionGenerateIndex(index))
     }
 
@@ -114,7 +116,8 @@ function Main() {
 
             </div>
             {
-                data.countFail === 3 || data.countSuccess === 100 ? <Result onClick={restart}/> : <div/>
+                data.countFail === countForLose || data.countSuccess === countForWin ?
+                    <Result onClick={restart} countForWin={countForWin}/> : <div/>
             }
         </div>
     )
